@@ -468,4 +468,34 @@ model = glm::scale(model, glm::vec3(sx, sy, 1.0f));                   // 缩放
 
 → 参见 [src/05_transformations/main.cpp](../src/05_transformations/main.cpp) · [vertex.glsl](../src/05_transformations/vertex.glsl)
 
-<!-- Lesson 06: 摄像机、视图矩阵、透视投影 -->
+<!-- Lesson 06 ✓ -->
+### MVP 矩阵
+
+完整变换链：`gl_Position = Projection × View × Model × vertex`
+
+```cpp
+// View：lookAt(位置, 目标, 上方向)，每帧随摄像机更新
+glm::mat4 view = glm::lookAt(camPos, camPos + camFront, camUp);
+
+// Projection：透视投影，窗口大小不变时只需设一次
+glm::mat4 proj = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
+```
+
+| 矩阵 | 职责 | 更新时机 |
+|------|------|---------|
+| Model | 物体在世界中的位置/姿态 | 每物体每帧 |
+| View | 摄像机视角（lookAt） | 摄像机移动时 |
+| Projection | 透视效果、FOV | 窗口大小改变时 |
+
+→ 参见 [src/06_camera/main.cpp](../src/06_camera/main.cpp) · [vertex.glsl](../src/06_camera/vertex.glsl)
+
+### 深度测试
+
+```cpp
+glEnable(GL_DEPTH_TEST);                                  // 初始化时开启
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);       // 每帧清空两个缓冲
+```
+
+→ 参见 [src/06_camera/main.cpp](../src/06_camera/main.cpp)
+
+<!-- Lesson 07: 光照、法线、Phong 模型 -->

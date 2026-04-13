@@ -26,6 +26,9 @@ all: $(LESSONS)
 
 05_transformations:
 	$(CXX) $(CXXFLAGS) src/05_transformations/main.cpp -o build/$@ $(LDFLAGS)
+	
+06_camera:
+	$(CXX) $(CXXFLAGS) src/06_camera/main.cpp -o build/$@ $(LDFLAGS)
 
 clean:
 	rm -rf build/
