@@ -32,6 +32,9 @@ all: $(LESSONS)
 	
 07_lighting:
 	$(CXX) $(CXXFLAGS) src/07_lighting/main.cpp -o build/$@ $(LDFLAGS)
+	
+08_light_maps:
+	$(CXX) $(CXXFLAGS) src/08_light_maps/main.cpp -o build/$@ $(LDFLAGS)
 
 clean:
 	rm -rf build/

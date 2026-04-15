@@ -520,4 +520,21 @@ glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(model)));
 
 → 参见 [src/07_lighting/lit.vert](../src/07_lighting/lit.vert) · [lit.frag](../src/07_lighting/lit.frag)
 
-<!-- Lesson 08: 光照贴图（Diffuse Map + Specular Map） -->
+<!-- Lesson 08 ✓ -->
+### 光照贴图（Light Maps）
+
+用纹理替代材质的单一颜色，实现逐像素光照控制：
+
+```glsl
+vec3 diffColor = texture(uDiffuseMap,  vTexCoord).rgb;  // 本色
+vec3 specColor = texture(uSpecularMap, vTexCoord).rgb;  // 高光强度（黑=哑光，白=光亮）
+
+vec3 diffuse  = diffColor * lightColor * max(dot(N,L), 0.0);
+vec3 specular = specColor * lightColor * pow(max(dot(R,V),0.0), shininess);
+```
+
+多纹理单元绑定：`glUniform1i(loc, 0/1)` 指定单元编号，渲染前 `glActiveTexture(GL_TEXTURE0/1)` 激活。
+
+→ 参见 [src/08_light_maps/lit.frag](../src/08_light_maps/lit.frag)
+
+<!-- Lesson 09: 多光源（定向光/点光源/聚光灯） -->
